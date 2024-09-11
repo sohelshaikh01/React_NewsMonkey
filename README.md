@@ -5,3 +5,9 @@
 - It provides news for different countery
 - Detailed news pages link
 - Modern UI and UX
+
+
+### Installations
+- npm prop-types
+- npm react-router-dom
+- npm i react-infinite-scroll-component

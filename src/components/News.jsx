@@ -31,7 +31,12 @@ export class News extends React.Component {
 		}
 	}
 
+	capitalize(word) {
+		return word.charAt(0).toUpperCase() + word.slice(1);
+	}
+
 	componentDidMount() {
+		document.title = `${this.capitalize(this.props.category)} - NewsMonkey`;
 		this.updateNews();
 	}
     
@@ -40,7 +45,7 @@ export class News extends React.Component {
 		return (
 			<>
 				<div className="text-center bg-blue-50 px-4">
-					<h1 className="text-2xl font-bold pb-4"> NewsMonkey - {this.props.category} Top Headlines</h1>
+					<h1 className="text-2xl font-bold pb-4"> NewsMonkey - {this.capitalize(this.props.category)} Top Headlines</h1>
 				</div>
 
 				<div className="flex content-start justify-evenly gap-8 flex-wrap p-4 bg-blue-50"> 

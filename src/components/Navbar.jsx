@@ -1,4 +1,5 @@
 import Icon from '../assets/favNews.ico';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -7,10 +8,10 @@ function Navbar() {
             
             <div className="max-w-screen-xl flex flex-wrap gap-3 items-center justify-between mx-auto p-4">
                 
-                <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse font-bold text-xl">
+                <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse font-bold text-xl">
                     <img src={Icon} className="h-8" alt="NewsMonkey" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap text-purple-700 dark:text-white"> NewsMonkey</span>
-                </a>
+                </Link>
                 
 
                 <div className="flex md:order-2 text-xl" >
@@ -60,25 +61,25 @@ function Navbar() {
 
                     <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
-                            <a href="/" className="block py-2 px-3 text-gray-900 bg-blue-700 rounded md:bg-transparent md:hover:text-slate-400 md:p-0" aria-current="page"> General</a>
+                            <Link to="/general" className="block py-2 px-3 text-gray-900 bg-blue-700 rounded md:bg-transparent md:hover:text-slate-400 md:p-0" aria-current="page"> General</Link>
                         </li>
                         <li>
-                            <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Business</a>
+                            <Link to="/business" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Business</Link>
                         </li>
                         <li>
-                            <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Entertaiment</a>
+                            <Link to="/entertainment" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Entertaiment</Link>
                         </li>
                         <li>
-                            <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Health</a>
+                            <Link to="/health" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Health</Link>
                         </li>
                         <li>
-                            <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Science</a>
+                            <Link to="/science" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Science</Link>
                         </li>
                         <li>
-                            <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Sports</a>
+                            <Link to="/sports" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Sports</Link>
                         </li>
                         <li>
-                            <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Technology</a>
+                            <Link to="/technology" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Technology</Link>
                         </li>
                     </ul>
                 </div>

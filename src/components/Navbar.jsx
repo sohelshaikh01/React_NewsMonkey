@@ -3,7 +3,7 @@ import Icon from '../assets/favNews.ico';
 function Navbar() {
   return (
     <div>
-        <nav className="bg-blue-50 border-gray-200 dark:bg-gray-900">
+        <nav className=" border-gray-200 dark:bg-gray-900">
             
             <div className="max-w-screen-xl flex flex-wrap gap-3 items-center justify-between mx-auto p-4">
                 

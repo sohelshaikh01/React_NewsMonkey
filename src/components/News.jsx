@@ -39,11 +39,11 @@ export class News extends React.Component {
   render() {
     return (
       <>
-        <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4"> NewsMonkey - Top Headlines</h1>
+        <div className="text-center bg-blue-50 px-4">
+            <h1 className="text-2xl font-bold pb-4"> NewsMonkey - Top Headlines</h1>
         </div>
 
-        <div className="flex content-start justify-evenly gap-8 flex-wrap mx-4 my-2"> 
+        <div className="flex content-start justify-evenly gap-8 flex-wrap p-4 bg-blue-50"> 
             {this.state.data.map((element) => (
                 <NewsItem key={element.url}
 				title={element.title?element.title:"This is title"} 

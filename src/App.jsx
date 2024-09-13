@@ -12,7 +12,7 @@ function App() {
 	<>
     	<Navbar/>	
 		<Routes>
-			<Route exact path="/" element={<News country="us" key="general" category="general" pageSize={pageSize} />} />
+			<Route exact path="/" element={<News country="us" key="Homepage" category="general" pageSize={pageSize} />} />
 			<Route exact path="/general" element={<News country="us" key="general" category="general" pageSize={pageSize} />} />
 			<Route exact path="/business" element={<News country="us" key="business" category="business" pageSize={pageSize} />} />
 			<Route exact path="/entertainment" element={<News country="us" key="entertaiment" category="entertainment" pageSize={pageSize} />} />

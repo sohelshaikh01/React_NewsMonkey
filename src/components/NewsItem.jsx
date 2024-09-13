@@ -8,7 +8,7 @@ export class NewsItem extends Component {
     const {url, date, imageUrl, author, source, title, description} = this.props;
 
     return (
-      <div className="card min-w-[320px] max-w-[320px] border border-gray-400 bg-white">
+      <div className="card min-w-[320px] max-w-[320px] bg-white">
 
         <img src={imageUrl} alt="UrlToImage"/>
 

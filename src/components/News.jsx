@@ -18,7 +18,7 @@ export class News extends React.Component {
 
 	async updateNews() {
 		try {
-			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=decfb26949ae4129a410a56d97ba2456&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
 			this.setState({loading: true });
 			
 			this.props.setProgress(30);
@@ -51,7 +51,7 @@ export class News extends React.Component {
 
 	async fetchData() {
 		try {
-			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=decfb26949ae4129a410a56d97ba2456&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=${this.props.apiKey}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
 			this.setState({loading: true});
 			
 			this.props.setProgress(30);
@@ -113,6 +113,7 @@ export class News extends React.Component {
 News.propTypes =  {
 	country: PropTypes.string.isRequired,
 	setProgress: PropTypes.number.isRequired,
+	apiKey: PropTypes.string.isRequired,
 	pageSize: PropTypes.number.isRequired,
 	category: PropTypes.string.isRequired
 }

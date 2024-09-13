@@ -19,8 +19,9 @@ export class News extends React.Component {
 	async updateNews() {
 		try {
 			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=decfb26949ae4129a410a56d97ba2456&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-			this.setState({loading: true});
-
+			this.setState({loading: true });
+			
+			this.props.setProgress(30);
 			const getNews = await fetch(NewsUrl);
 			const getData = await getNews.json();
 
@@ -28,8 +29,9 @@ export class News extends React.Component {
 				this.setState({
 					data: getData.articles,
 					totalResults: getData.totalResults,
-					loading: false
+					loading: false,
 				});
+				this.props.setProgress(100);
 			}
 		}
 		catch(error) {
@@ -51,7 +53,8 @@ export class News extends React.Component {
 		try {
 			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=decfb26949ae4129a410a56d97ba2456&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
 			this.setState({loading: true});
-
+			
+			this.props.setProgress(30);
 			const getNews = await fetch(NewsUrl);
 			const getData = await getNews.json();
 
@@ -62,6 +65,7 @@ export class News extends React.Component {
 					loading: this.state.data.length === 0,
 					page : this.state.page + 1,
 				});
+				this.props.setProgress(100);
 			}
 		}
 		catch(error) {
@@ -76,7 +80,7 @@ export class News extends React.Component {
 		return (
 			<>
 				<div className="text-center bg-blue-50 px-4">
-					<h1 className="text-2xl font-bold pb-4"> NewsMonkey - {this.capitalize(this.props.category)} Top Headlines</h1>
+					<h1 className="text-2xl font-bold py-4"> NewsMonkey - {this.capitalize(this.props.category)} Top Headlines</h1>
 					{/* {this.state.loading && <Loader/>} */}
 				</div> 
 
@@ -85,21 +89,20 @@ export class News extends React.Component {
 					next={this.fetchData.bind(this)}
 					hasMore={this.state.data.length < this.state.totalResults}
 					loader={this.state.loading && <Loader/>}
-					style={{ display: 'flex', flexDirection: 'column'}}
-					// endMessage={ <p style={{ textAlign: 'center' }}> <b>Yay! You have seen it all</b>  </p> } 
-				>
+					style={{ display: 'flex', flexDirection: 'column'}} >
 
-					<div className="flex content-start justify-evenly gap-8 flex-wrap m-4 bg-blue-50"> 
-						{!this.state.loading && this.state.data.map((element) => (
-							<NewsItem key={element.url}
-							title={element.title?element.title:"This is title"} 
-							description={element.description?element.description.slice(0, 120):"This is description"} 
-							imageUrl={element.urlToImage?element.urlToImage:images} url={element.url}
-							author={element.author?element.author:"The Unknown"} date={element.publishedAt}
-							source={element.source.name} />
-						))} 
+					<div className="container m-auto flex flex-wrap">
+						<div className="flex flex-row justify-evenly gap-8 flex-wrap m-4 bg-blue-50"> 
+							{!this.state.loading && this.state.data.map((element) => (
+								<NewsItem key={element.url} title={element.title?element.title:"This is title"} 
+								description={element.description?element.description.slice(0, 120):"This is description"} 
+								imageUrl={element.urlToImage?element.urlToImage:images} url={element.url}
+								author={element.author?element.author:"The Unknown"} date={element.publishedAt}
+								source={element.source.name} />
+							))} 
+						</div>
 					</div>
-					
+
 				</InfiniteScroll>
 
 			</>
@@ -109,6 +112,7 @@ export class News extends React.Component {
 
 News.propTypes =  {
 	country: PropTypes.string.isRequired,
+	setProgress: PropTypes.number.isRequired,
 	pageSize: PropTypes.number.isRequired,
 	category: PropTypes.string.isRequired
 }

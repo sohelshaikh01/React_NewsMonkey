@@ -8,7 +8,7 @@ export class NewsItem extends Component {
     const {url, date, imageUrl, author, source, title, description} = this.props;
 
     return (
-      <div className="card min-w-32 max-w-[380px] border border-gray-400 bg-white">
+      <div className="card min-w-[320px] max-w-[320px] border border-gray-400 bg-white">
 
         <img src={imageUrl} alt="UrlToImage"/>
 
@@ -17,7 +17,7 @@ export class NewsItem extends Component {
           <p className="card-text ">{description.slice(0, 120)}...</p>
           <p className="font-semibold">{source} </p>
           <small className='text-muted text-sm leading-5'>By {author?author:'unknown'} on {new Date(date).toGMTString()}</small>
-          <a href={url} className="bg-blue-500 inline-block px-4 py-1 text-white mt-2 "> Read More</a>
+          <a href={url} className="bg-black inline-block px-4 py-1 text-white mt-2 "> Read More</a>
         </div>
       </div>
     )
@@ -34,4 +34,4 @@ NewsItem.propTypes = {
   description: PropTypes.string.isRequired,
 };
 
-export default NewsItem
+export default NewsItem;

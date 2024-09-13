@@ -2,6 +2,7 @@ import React from 'react';
 import NewsItem from './NewsItem';
 import PropTypes from 'prop-types';
 import Loader from './Loader';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export class News extends React.Component {
 
@@ -10,14 +11,15 @@ export class News extends React.Component {
 		this.state = {
 			data: [],
 			totalResults: 0,
-			loading: true
+			loading: true,
+			page: 1,
 		}
 	}
 
 	async updateNews() {
 		try {
-			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=decfb26949ae4129a410a56d97ba2456&pageSize=${this.props.pageSize}`;
-			this.setState({Loading: true});
+			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=decfb26949ae4129a410a56d97ba2456&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+			this.setState({loading: true});
 
 			const getNews = await fetch(NewsUrl);
 			const getData = await getNews.json();
@@ -32,7 +34,8 @@ export class News extends React.Component {
 		}
 		catch(error) {
 			console.log("can't get data due to this error: " + error);
-		}
+			this.setState({loading: false});
+		  }		  
 	}
 
 	capitalize(word) {
@@ -43,30 +46,65 @@ export class News extends React.Component {
 		document.title = `${this.capitalize(this.props.category)} - NewsMonkey`;
 		this.updateNews();
 	}
+
+	async fetchData() {
+		try {
+			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=decfb26949ae4129a410a56d97ba2456&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+			this.setState({loading: true});
+
+			const getNews = await fetch(NewsUrl);
+			const getData = await getNews.json();
+
+			if(getData.articles && getData.totalResults) {
+				this.setState({
+					data: this.state.data.concat(getData.articles),
+					totalResults: getData.totalResults,
+					loading: this.state.data.length === 0,
+					page : this.state.page + 1,
+				});
+			}
+		}
+		catch(error) {
+			console.log("can't get data due to this error: " + error);
+			this.setState({loading: false});
+		}
+	}
     
 	render() {
 		let images = `https://via.placeholder.com/400x200`;
+
 		return (
 			<>
 				<div className="text-center bg-blue-50 px-4">
 					<h1 className="text-2xl font-bold pb-4"> NewsMonkey - {this.capitalize(this.props.category)} Top Headlines</h1>
-					{this.loading && <Loader/>}
-				</div>
+					{/* {this.state.loading && <Loader/>} */}
+				</div> 
 
+				<InfiniteScroll
+					dataLength={this.state.data.length}
+					next={this.fetchData.bind(this)}
+					hasMore={this.state.data.length < this.state.totalResults}
+					loader={this.state.loading && <Loader/>}
+					style={{ display: 'flex', flexDirection: 'column'}}
+					// endMessage={ <p style={{ textAlign: 'center' }}> <b>Yay! You have seen it all</b>  </p> } 
+				>
 
-				<div className="flex content-start justify-evenly gap-8 flex-wrap -p-4 bg-blue-50"> 
-					{!this.loading && this.state.data.map((element) => (
-						<NewsItem key={element.url}
-						title={element.title?element.title:"This is title"} 
-						description={element.description?element.description.slice(0, 120):"This is description"} 
-						imageUrl={element.urlToImage?element.urlToImage:images} url={element.url}
-						author={element.author?element.author:"The Unknown"} date={element.publishedAt}
-						source={element.source.name} />
-					))} 
-				</div>
+					<div className="flex content-start justify-evenly gap-8 flex-wrap m-4 bg-blue-50"> 
+						{!this.state.loading && this.state.data.map((element) => (
+							<NewsItem key={element.url}
+							title={element.title?element.title:"This is title"} 
+							description={element.description?element.description.slice(0, 120):"This is description"} 
+							imageUrl={element.urlToImage?element.urlToImage:images} url={element.url}
+							author={element.author?element.author:"The Unknown"} date={element.publishedAt}
+							source={element.source.name} />
+						))} 
+					</div>
+					
+				</InfiniteScroll>
+
 			</>
 		);
-  }
+  	}
 }
 
 News.propTypes =  {

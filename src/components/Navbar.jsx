@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Navbar() {
   return (
     <div>
-        <nav className=" border-gray-200 dark:bg-gray-900">
+        <nav className=" border-gray-200 bg-purple-100 dark:bg-gray-900">
             
             <div className="max-w-screen-xl flex flex-wrap gap-3 items-center justify-between mx-auto p-4">
                 
@@ -14,7 +14,7 @@ function Navbar() {
                 </Link>
                 
 
-                <div className="flex md:order-2 text-xl" >
+                <div className="flex md:order-2 text-xl  bg-purple-100" >
 
                     <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
                         <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -59,9 +59,9 @@ function Navbar() {
 
                         </div>
 
-                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg  bg-purple-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-purple-100 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
-                            <Link to="/general" className="block py-2 px-3 text-gray-900 bg-blue-700 rounded md:bg-transparent md:hover:text-slate-400 md:p-0" aria-current="page"> General</Link>
+                            <Link to="/general" className="block py-2 px-3 text-gray-900 bg-purple-100 rounded md:bg-transparent md:hover:text-slate-400 md:p-0" aria-current="page"> General</Link>
                         </li>
                         <li>
                             <Link to="/business" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-slate-400 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"> Business</Link>

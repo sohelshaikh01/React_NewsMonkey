@@ -8,9 +8,9 @@ export class NewsItem extends Component {
     const {url, date, imageUrl, author, source, title, description} = this.props;
 
     return (
-      <div className="card min-w-[320px] max-w-[320px] bg-white">
+      <div className="card max-w-[320px]  bg-white">
 
-        <img src={imageUrl} alt="UrlToImage"/>
+        <img src={imageUrl} className="max-h-[200px] w-[100%]" alt="UrlToImage"/>
 
         <div className="card-body flex flex-col justify-center gap-2 p-4">
           <h5 className="card-title text-xl font-bold">{title.slice(0, 50)}...</h5>

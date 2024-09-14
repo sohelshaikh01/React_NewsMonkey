@@ -5,7 +5,6 @@ import React from 'react';
 import LoadingBar from 'react-top-loading-bar';
 import { Routes, Route } from 'react-router-dom';
 
-
 export class App extends React.Component {
 	pageSize = 15;
 
@@ -18,7 +17,6 @@ export class App extends React.Component {
 	setProgress = (progress) => {
 		this.setState({ progress: progress });
 	};
-
 
   render() {
 	return (

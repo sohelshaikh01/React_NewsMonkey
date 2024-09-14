@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <div>
-        <nav className=" border-gray-200 bg-purple-100 dark:bg-gray-900">
+    <div className='sticky top-0 '>
+        <nav className=" border-gray-200 bg-purple-100 dark:bg-gray-900 ">
             
             <div className="max-w-screen-xl flex flex-wrap gap-3 items-center justify-between mx-auto p-4">
                 

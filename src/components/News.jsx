@@ -1,114 +1,107 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import NewsItem from './NewsItem';
 import PropTypes from 'prop-types';
 import Loader from './Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-export class News extends React.Component {
+function News(props) {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			data: [],
-			totalResults: 0,
-			loading: true,
-			page: 1,
-		}
-	}
+	const [data, setData] = useState([]);
+	const [totalResults, setTotalResults] = useState(0);
+	const [loading, setLoading] = useState(true);
+	const [page, setPage] = useState(1);
+	const {setProgress, country, category, apiKey, pageSize} = props;
+	const images = `https://via.placeholder.com/400x200`;
 
-	async updateNews() {
+	const updateNews = async() => {
+
 		try {
-			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-			this.setState({loading: true });
+			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&sortBy=publishedAt&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
+			setLoading(true);
 			
-			this.props.setProgress(30);
+			setProgress(30);
 			const getNews = await fetch(NewsUrl);
 			const getData = await getNews.json();
 
 			if(getData.articles && getData.totalResults) {
-				this.setState({
-					data: getData.articles,
-					totalResults: getData.totalResults,
-					loading: false,
-				});
-				this.props.setProgress(100);
+				setData(getData.articles);
+				setTotalResults(getData.totalResults);
+				setLoading(true);
+				setProgress(100);
 			}
 		}
 		catch(error) {
 			console.log("can't get data due to this error: " + error);
-			this.setState({loading: false});
-		  }		  
+			setLoading(true);
+		}		  
 	}
 
-	capitalize(word) {
+	const capitalize = (word) => {
 		return word.charAt(0).toUpperCase() + word.slice(1);
 	}
 
-	componentDidMount() {
-		document.title = `${this.capitalize(this.props.category)} - NewsMonkey`;
-		this.updateNews();
-	}
+	useEffect(() => {
+		document.title = `${capitalize(category)} - NewsMonkey`;
+		updateNews();
+	});
 
-	async fetchData() {
+	const fetchData = async () => {
+
 		try {
-			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=${this.props.apiKey}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
-			this.setState({loading: true});
+			const NewsUrl = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&sortBy=publishedAt&apiKey=${apiKey}&page=${page + 1}&pageSize=${pageSize}`;
+			setLoading(true);
 			
-			this.props.setProgress(30);
+			setProgress(30);
 			const getNews = await fetch(NewsUrl);
 			const getData = await getNews.json();
 
 			if(getData.articles && getData.totalResults) {
-				this.setState({
-					data: this.state.data.concat(getData.articles),
-					totalResults: getData.totalResults,
-					loading: this.state.data.length === 0,
-					page : this.state.page + 1,
-				});
-				this.props.setProgress(100);
+				setData(data.concat(getData.articles));
+				setTotalResults(getData.totalResults);
+				setLoading(data.length === 0);
+				setPage(page + 1);
+				setProgress(100);
 			}
 		}
 		catch(error) {
 			console.log("can't get data due to this error: " + error);
-			this.setState({loading: false});
+			setLoading(true);
 		}
 	}
-    
-	render() {
-		let images = `https://via.placeholder.com/400x200`;
+	
+	return (
+	<>
+		<div className="text-center bg-blue-50 px-4">
+			<h1 className="text-2xl font-bold py-4"> NewsMonkey - {capitalize(category)} Top Headlines</h1>
+			{/* {loading && <Loader/>} */}
+		</div> 
 
-		return (
-			<>
-				<div className="text-center bg-blue-50 px-4">
-					<h1 className="text-2xl font-bold py-4"> NewsMonkey - {this.capitalize(this.props.category)} Top Headlines</h1>
-					{/* {this.state.loading && <Loader/>} */}
-				</div> 
+		<InfiniteScroll
+			dataLength={data.length}
+			next={fetchData}
+			hasMore={data.length < totalResults}
+			loader={loading && <Loader/>}
+			style={{ display: 'flex', flexDirection: 'column'}} >
 
-				<InfiniteScroll
-					dataLength={this.state.data.length}
-					next={this.fetchData.bind(this)}
-					hasMore={this.state.data.length < this.state.totalResults}
-					loader={this.state.loading && <Loader/>}
-					style={{ display: 'flex', flexDirection: 'column'}} >
+			<div className="container m-auto flex flex-wrap">
+				<div className="flex flex-row justify-evenly gap-8 flex-wrap m-4 bg-blue-50">
 
-					<div className="container m-auto flex flex-wrap">
-						<div className="flex flex-row justify-evenly gap-8 flex-wrap m-4 bg-blue-50"> 
-							{!this.state.loading && this.state.data.map((element) => (
-								<NewsItem key={element.url} title={element.title?element.title:"This is title"} 
-								description={element.description?element.description.slice(0, 120):"This is description"} 
-								imageUrl={element.urlToImage?element.urlToImage:images} url={element.url}
-								author={element.author?element.author:"The Unknown"} date={element.publishedAt}
-								source={element.source.name} />
-							))} 
-						</div>
-					</div>
-
-				</InfiniteScroll>
-
-			</>
-		);
-  	}
+					{!loading && data.map((element) => (
+						<NewsItem key={element.url} title={element.title?element.title:"This is title"} 
+						description={element.description?element.description.slice(0, 120):"This is description"} 
+						imageUrl={element.urlToImage?element.urlToImage:images} url={element.url}
+						author={element.author?element.author:"The Unknown"} date={element.publishedAt}
+						source={element.source.name} />
+					))} 
+					
+				</div>
+			</div>
+		</InfiniteScroll>
+	</>
+	
+	);
 }
+
 
 News.propTypes =  {
 	country: PropTypes.string.isRequired,

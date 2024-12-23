@@ -26,7 +26,7 @@ function News(props) {
 			if(getData.articles && getData.totalResults) {
 				setData(getData.articles);
 				setTotalResults(getData.totalResults);
-				setLoading(true);
+				setLoading(false);
 				setProgress(100);
 			}
 		}
@@ -43,7 +43,7 @@ function News(props) {
 	useEffect(() => {
 		document.title = `${capitalize(category)} - NewsMonkey`;
 		updateNews();
-	});
+	}, []);
 
 	const fetchData = async () => {
 
@@ -56,7 +56,7 @@ function News(props) {
 			const getData = await getNews.json();
 
 			if(getData.articles && getData.totalResults) {
-				setData(data.concat(getData.articles));
+				setData(prevData => [...prevData, ...getData.articles]);
 				setTotalResults(getData.totalResults);
 				setLoading(data.length === 0);
 				setPage(page + 1);
@@ -102,14 +102,14 @@ function News(props) {
 	);
 }
 
-
 News.propTypes =  {
 	country: PropTypes.string.isRequired,
-	setProgress: PropTypes.number.isRequired,
+	setProgress: PropTypes.func.isRequired,
 	apiKey: PropTypes.string.isRequired,
 	pageSize: PropTypes.number.isRequired,
 	category: PropTypes.string.isRequired
 }
+
 
 export default News;
 
